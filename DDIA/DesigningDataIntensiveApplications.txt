@@ -1,0 +1,19 @@
+#
+Key goals
+- Scalability
+- Consistency
+- Reliability
+- Efficiency
+- Maintainability
+
+#
+Typical tools
+RDBMS
+NoSQL databases
+Stream and batch processors
+Message brokers
+
+#
+Buzz words:
+
+

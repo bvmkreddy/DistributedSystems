@@ -1,0 +1,158 @@
++ Databases: To store the data
+  Caches: To remember expesive operations
+  Search Indexes: To speed up user access to the data
+  Stream Processing: To pass the inforamtions asynchronously to other parts in the
+            system. These are asynchronous and need to be handled by stream
+            processes.
+  Batch Processing: Occasionally cruch the the static data.
+
++ Reliable, scalable and maintainable data system
+
++ there are datastores that are also used as mes‐ sage queues (Redis), and there are message queues with database-like durability guar‐ antees (Apache Kafka).
+
++ application-managed caching layer (using Memcached
+  full-text search server (such as Elasticsearch or Solr)
+
++ Your composite data system may provide certain guarantees: e.g., that the cache will be correctly invalidated or upda‐ ted on writes so that outside clients see consistent results. You are now not only an application developer, but also a data system designer.
+
++ The things that can go wrong are called faults, and systems that anticipate faults and can cope with them are called fault-tolerant or resilient. The former term is slightly misleading: it suggests that we could make a system tolerant of every possible kind of fault, which in reality is not feasible.
+
++ Note that a fault is not the same as a failure [2]. A fault is usually defined as one com‐ ponent of the system deviating from its spec, whereas a failure is when the system as a whole stops providing the required service to the user.
+
++ Counterintuitively, in such fault-tolerant systems, it can make sense to increase the rate of faults by triggering them deliberately—for example, by randomly killing indi‐ vidual processes without warning. Many critical bugs are actually due to poor error handling
+
++ by deliberately inducing faults, you ensure that the fault-tolerance machinery is continually exercised and tested, which can increase your confidence that faults will be handled correctly when they occur naturally. The Netflix Chaos Monkey [4] is an example of this approach.
+ - Netflix uses "Chaos Monkey": 
+ 
++ When we think of causes of system failure, hardware faults quickly come to mind. Hard disks crash, RAM becomes faulty, the power grid has a blackout, someone unplugs the wrong network cable. Anyone who has worked with large datacenters can tell you that these things happen all the time when you have a lot of machines.
+
++ Hard disks are reported as having a mean time to failure (MTTF) of about 10 to 50
+
++ Hardware faults: 
+  - Redundency
+  - RAIDS for diskc
+  - Dual Power Supply, Battery, Generators
+  - How sapable CPUs
+  Basically redundant component kicks in when the main component dies
+
++ Amazon Web Services (AWS) it is fairly common for virtual machine instances to become unavailable without warning [7], as the platforms are designed to prioritize flexibility and elasticityi over single-machine reliability.
+
++ Hence there is a move toward systems that can tolerate the loss of entire machines, by using software fault-tolerance techniques in preference or in addition to hardware redundancy.
+
++ Software Faults:
+  - Usually corelated and lead to other failures, unluike hardware failures
+    which are conmpletely random and independent. Meaning one disk crashing
+    doesn't mean other disk also crashes. So software errors are muhc more
+    systematic and affect larger set of compoenets and lead the failures at
+    bigger scale
+  - E.g,
+    SW bugs
+    Run away process leaking resources
+    Cascading effect when one component starts giving un expected resposes.
+  - There is no solution. Bet frew things
+    > Careful analysis of assumptions
+    > Throughly analyze the interaction between the systems
+    > Regorous testing
+    > Monitoring the behavior contineously in production.
+
++ Human errors: 
+  - Errors created by the users of the system
+  - Design the system with
+    > Well designed APIs which makes it easy to do right thigns and discourages
+      bad things
+    > Sandbox testing
+    > Autoamted testing. Manual testing.
+      - Tesing at diffrent levels, unit testing and integrated system level
+        testing.
+    > Constant and clear monitoring of metrics
+      - In MMAV we only test fucntional.
+        $ No automated testing
+        $ No performance monitoring
+        $ No memory foot print monitoring
+
++ Reliability is not just for nuclear power stations and air traffic control software— more mundane applications are also expected to work reliably. Bugs in business applications cause lost productivity (and legal risks if figures are reported incor‐ rectly), and outages of ecommerce sites can have huge costs in terms of lost revenue and damage to reputation.
+  - An example of what happend to costco during last holiday shopping
+
+
++ Scalability could be more than expected number of users or data.
+  - What we can't measure we can't improve. Need to come up with the formula for
+    measuring the load and what is acceptabe load.
+  - All thses are typically called load parameters.
+  - Load parameters, 
+    $ For twitter it's the fan out hence doing more work at
+      writes make more sense than at the time of reads.
+    $ Twitter solve the problem by deligating most of the work at the write time
+      for normal tweets and for celebrities at the read time. Basically a hybrid
+      approach
+    $ For your specific system it might be something else.
+    $ Basically what is the bottle neck and a metric of that, which your system
+      is designed to cope with.
+  - Performance:
+    $ Latency: Duration for which request is waiting to be serviced
+    $ Service time: Time it takes to process the rewquest
+    $ Response time: Includes everything above and netowrd delays of in and out.
+    $ For hadoop respose time is one of the important metric and rather than
+      average which can be skewed we can use median. Response time isn't through
+      put meaning user submitting more data will experience more delay.
+    $ Since it is per client then we should look at 95 99 and 99.9 percentile
+      numbers, called p95, p99, p999. Also known as tail lectecy
+    $ Amazon has also observed that a 100 ms increase in response time reduces sales by 1%
+    $ When generating load artificially in order to test the scalability of a
+      system, the load- generating client needs to keep sending requests
+      indepdently of the response time. If the client waits for the previous 
+      request to complete before sending the next one, that behavior has the effect 
+      of artificially keeping the queues shorter in the test than they would be in
+      reality, which skews the measurements [23]
+    $ Bascailly what is the performance metrics that your system is s designed
+      to meet. So that you can constantly track them(efficiently) and scale when
+      needed
+ 
++ Maintainability:
+  - Operable: Easy for the operations team to keep system running smoothly.
+    > Easy to move to different plat form, easy to integrate with other tools,
+      Easy to monitor, predict and apply general security patches easily.
+  - Simplicity: Easy to the engineers to understand the system.
+    > Don't make it big ball of mud
+    > Make it modular and define clear APIs.
+  - Evolvability: Flexible design to adopt to future changes
+
++ Coping with the load:
+  - Horizantal vs Vertical scaling.
+  - Looks like vertical scalling is preferred and efficient. Moveing stateless
+    services to distributed systems is fairly simple. But moving stateful
+    service to a distrubuted systems bring in additional complexity.
+  - So traditional approa
+
+
++ Following things make is easy to maintain
+  - Operability:
+    > Easy to deply, monitor, Anticipate failures based on metrics, easy to move
+    > across the platforms, easy to integrate with other tools and technologies,
+    > easy to upgrade or apply some security patches.
+  - Simplicity:
+    > Make more of the systems simple
+    > Avoid making a big ball of mud
+      $ Tangled dependencies, specific way handling things in cetain parts of
+        the code to overcome certain other things in the code. Tightly coupled
+        modules. Lot of "acciddental complexities" requiremetns from the user
+        point of view are simple but the implementations make it complicated.
+  - Evolvability:
+    > Deployment of the software in constantly changing environment
+    > Test driven development
+    > Agility of the system comes with simplicity and abstractions.
+
++ 
+
+Terminology
++ Load metrics
++ Hadoop: A batch processing systems
++ Respose time, Service time, Network Delay, Response Time, Tail latencies
++ Service Level Objectives and Service Level Agreements. SLO and SLA
++ Head of the line blocking
++ Tail Latency Amplification
++ Scaling up or vertical scaling is moving to a powerful machines. Scaling out
+  is bringing in more machines and distributing the work.
++ Shared-nothing architecture.
++ Manual scaling (vs) Elastic scaling
++ Accedental complexity
+

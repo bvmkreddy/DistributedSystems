@@ -1,0 +1,73 @@
++ For each layer, the key question is: how is it represented in terms of the next-lower layer? 
+
++ In a complex application there may be more intermediary levels, such as APIs built upon APIs, but the basic idea is still the same: each layer hides the complexity of the layers below it by providing a clean data model.
+
++ There are many different kinds of data models, and every data model embodies assumptions about how it is going to be used. Some kinds of usage are easy and some are not supported; some operations are fast and some perform badly; some data transformations feel natural and some are awkward.
+
++ The best-known data model today is probably that of SQL, based on the relational model proposed by Edgar Codd in 1970 [1]: data is organized into relations (called tables in SQL), where each relation is an unordered collection of tuples (rows in SQL).
+
++ RDBMS:
+  - 1970 Proposal by Edgar Codd, 1980s implemenations and usage
+  - Typically for business applications
+  - Other data base models
+    $ Network based 70s
+    $ Heirarchical based 70s
+    $ Object based 80s 90s
+    $ XML based 2000
+  - Much of what we see today ecommerce, social media, online publishing etc is
+    all being powered by RDB.
++ NoSQL:
+  - Open Source, Distributed, nonrelational database
+  - 
+
+
+Terminology:
+============
++ Databases:
+  - Tuples/Records/Row
+  - Relations/Tables
+  - Transaction processing: Entering bank transaction, air line reservation etc
+  - Bathc prorcessing:  pay roll generation, any kind of report generation
+  - Normalization: Removing Duplication
+  - Shema based and shemaless are more like static typed and dynamic typed
+    programming languages
+  - Graph Databases:
+    > Property Graph:
+      - Neo4j-Cypher
+    > Triple Store: Subject, Predicate, Object
+      - Turtle
+    > RDF: Resource Description Format
+      - SPARQL: SPARQL Protocol And RDF Query Language
+        $ Pronounced as sparkle
+  - ACID:
+    > Atomicity
+    > Consistency
+    > Isolations
+    > Durability
+
++ Query languages:
+  - Declarative and Imperative
+  - Map redume which offers java script capability falls somewhere in between
+
++ Semantic Web:
+  - RDF: Resource Desription Format
+
++ MapReduce:
+  - Programming model for processing large amount of data in bulk across many machines
+  - Alse called Collect and Fold
+
++ URL: Unifirm Resource Locator
+  URI: Uniform Resource Identifier
+  URN: Uniform Resource Name
+
++ DOM: Document Object Model
+
++ GenBank:
+  - Gnome database that is specialized in patter matching with other records
+
++ Full-text:
+  - 
+
+? XSL
+? CSS
+  

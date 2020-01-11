@@ -1,0 +1,8 @@
++ How do you ensure that the data remains correct and complete, even when things go wrong internally? How do you provide consistently good performance to clients, even when parts of your system are degraded? How do you scale to handle an increase in load? What does a good API for the service look like?
+ - Do some case study of the realworld data systems
++ Netflix Chaos Monkey
++ 2012 June 30, leap second bug in linux kernel
++ Approxiamte percentil algorithms, forward delay etc.
+
+
++ There are bunch of papers at the end the chapter go through all of them.
